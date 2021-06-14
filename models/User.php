@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use app\modules\admin\models\AccountRole;
 use Yii;
 use yii\web\IdentityInterface;
 use app\modules\admin\models\Comment;
@@ -141,17 +140,6 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public static function findByUsername($username) // Получить имя пользователя
     {
         return static::findOne(['username' => $username]);
-    }
-
- 
-
-    public function saveRule($rule_id) // Сохранить роль
-    {
-        $rule = AccountRole::findOne($rule_id); // получение категории
-        if ($rule != null) { // Если категория не равна null
-            $this->link('rule', $rule); // Передача связи
-            return true;
-        }
     }
 
     /* --- Validate --- */

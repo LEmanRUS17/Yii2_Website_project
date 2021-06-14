@@ -48,6 +48,7 @@ AppAsset::register($this);
           <ul class="nav navbar-nav">
             <?php if (Yii::$app->user->isGuest) : ?>
               <li><a href="<?= Url::toRoute(['auth/login']) ?>" data-hint="Войти"><i class="budicon-check-2"></i><span>Войти</span></a></li>
+              <li><a href="<?= Url::toRoute(['auth/registration']) ?>" data-hint="Регестрация"><i class="budicon-book-1"></i><span>Регестрация</span></a></li>
             <?php else : ?>
               <li><a href="<?= Url::toRoute(['auth/logout']) ?>" data-hint="Выход"><i class="budicon-cancel-2"></i><span>Выход</span> (<?= Yii::$app->user->identity->username ?>)</a></li>
             <?php endif; ?>
