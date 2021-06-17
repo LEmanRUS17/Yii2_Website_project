@@ -2,7 +2,6 @@
 
 use app\modules\admin\models\Comment;
 use app\modules\admin\models\Category;
-use yii\helpers\Url;
 
 ?>
 <div class="container inner">
@@ -10,11 +9,11 @@ use yii\helpers\Url;
         <div class="col-md-8 col-sm-12 content">
             <div class="blog-posts">
 
-            <?php if ($info): ?>
-                <div class="post box">
-                    <h3><?= $info . $name ?></h3>
-                </div>
-            <?php endif; ?>
+                <?php if ($info) : ?>
+                    <div class="post box">
+                        <h3><?= $info . $name ?></h3>
+                    </div>
+                <?php endif; ?>
 
                 <?php foreach ($articles as $article) : ?>
                     <?php $image = $article->getImage(); ?>
@@ -31,7 +30,7 @@ use yii\helpers\Url;
                         </figure>
                         <div class="meta">
                             <span class="category">
-                                <a href="<?= Url::toRoute(['blog/category', 'id' => $article->category_id]) ?>">
+                                <a href="<?= yii\helpers\Url::toRoute(['blog/category', 'id' => $article->category_id]) ?>">
                                     <?= Category::getCategory($article->category_id) ?>
                                 </a>
                             </span>

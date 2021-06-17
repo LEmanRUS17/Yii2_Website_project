@@ -2,12 +2,13 @@
 
 namespace app\controllers;
 
+use Yii;
 use app\models\LoginForm;
 use app\models\User;
-use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
-use Yii;
+use yii\web\NotFoundHttpException;
 
 class AuthController extends AppController
 {
@@ -96,6 +97,56 @@ class AuthController extends AppController
         $model->password_repeat = null; // Очищение повторного пароля из формы
 
         return $this->render('registration', compact('model'));
+    }
+
+        /**
+     * Отображает одну модель пользователя. 
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException Если модель не может быть найдена 
+     */
+    public function actionView($id)
+    {
+        $model = $this->findModel($id);
+        $this->setMeta('Профиль пользователя: ' . $model->username);
+        if ($model->load(Yii::$app->request->post())) {
+            $this->imageProcessing($model); // Добавление изображения
+        }
+
+        return $this->render('view', compact('model'));
+    }
+
+    public function actionPjaxExample5()
+    {
+        return $this->render('pjax_example_5', [
+            'md5' => md5(Yii::$app->request->post('string'))
+        ]);
+    }
+    
+    public function actionUpdate($id) // Редактирование пользователя
+    {
+        $model = $this->findModel($id);
+        $model->scenario        = $model::SCENARIO_UPDATE; // Сценарий валидации
+        $model->currentEmail    = $model->email;           // Записать в модель текущий email
+        $model->currentUsername = $model->username;        // Записать в модель текущее имя пользователя
+
+        $this->setMeta('Редактирование учетной записи');
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Пользователь "' . $model->username . '" изменен'); // Сесионное сообщение
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('update', compact('model'));
+    }
+
+    protected function findModel($id)
+    {
+        if (($model = User::findOne($id)) !== null) { // Если модель пользователя найдена
+            return $model;
+        }
+
+        throw new NotFoundHttpException('Такой записи не существует.'); // Если модель пользователя не найдена
     }
 
 
