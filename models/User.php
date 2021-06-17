@@ -43,6 +43,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             [['username', 'password', 'password_repeat'], 'required', 'on' => self::SCENARIO_REGISTER], // Имя, пароль              | Обязательны
+            ['email', 'required', 'on' => self::SCENARIO_REGISTER],                                     // Email                    | Обязательны
             ['username', 'string', 'min' => 5, 'max' => 255, 'on' => self::SCENARIO_REGISTER],          // Имя, пароль              | Строка длиной не более 255 символов
             ['username', 'validateUniqueUser', 'on' => self::SCENARIO_REGISTER],                        // Имя                      | Проверка валидатором validateUniqueUser
             ['email', 'validateUniqueEmail', 'on' => self::SCENARIO_REGISTER],                          // Email                    | Проверка валидатором validateUniqueEmail
@@ -58,15 +59,15 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             ['password', 'string', 'min' => 6, 'max' => 30, 'on' => self::SCENARIO_REGISTER],           // Имя, пароль              | Строка длиной не более 255 символов
             ['description', 'string', 'max' => 300, 'on' => self::SCENARIO_REGISTER],                   // Описание                 | Строка, максимальная длина 300 символов
 
-            ['username', 'required', 'on' => self::SCENARIO_UPDATE],                         // Имя      | Обязательны
-            ['username', 'string', 'min' => 5, 'max' => 255, 'on' => self::SCENARIO_UPDATE], // Имя      | Строка длиной не более 255 символов
-            ['email', 'validateUniqueEmail', 'on' => self::SCENARIO_UPDATE],                 // Email    | Проверка валидатором validateUniqueEmail
-            ['email',                                                                        // Email    |
-                'filter',                                                                    //          | Фильтр
-                'filter' => 'trim',                                                          //          | Обрезает пробелы вокруг
-                'skipOnArray' => true, 'on' => self::SCENARIO_UPDATE],                       //          | пропускать валидацию, если входящим значением является массив
-            ['email', 'email', 'on' => self::SCENARIO_UPDATE],                               // Email    | Email
-            ['description', 'string', 'max' => 300, 'on' => self::SCENARIO_UPDATE],          // Описание | Строка, максимальная длина 300 символов
+            [['username', 'email'], 'required', 'on' => self::SCENARIO_UPDATE],              // Имя, Email | Обязательны
+            ['username', 'string', 'min' => 5, 'max' => 255, 'on' => self::SCENARIO_UPDATE], // Имя        | Строка длиной не более 255 символов
+            ['email', 'validateUniqueEmail', 'on' => self::SCENARIO_UPDATE],                 // Email      | Проверка валидатором validateUniqueEmail
+            ['email',                                                                        // Email      |
+                'filter',                                                                    //            | Фильтр
+                'filter' => 'trim',                                                          //            | Обрезает пробелы вокруг
+                'skipOnArray' => true, 'on' => self::SCENARIO_UPDATE],                       //            | пропускать валидацию, если входящим значением является массив
+            ['email', 'email', 'on' => self::SCENARIO_UPDATE],                               // Email      | Email
+            ['description', 'string', 'max' => 300, 'on' => self::SCENARIO_UPDATE],          // Описание   | Строка, максимальная длина 300 символов
         ];
     }
 

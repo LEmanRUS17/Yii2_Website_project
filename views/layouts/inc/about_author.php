@@ -9,7 +9,9 @@ $image = $author->getImage();
 
 <?php if ($author) : ?>
     <div class="about-author box">
-        <div class="author-image frame"> <?= yii\helpers\Html::img($image->getUrl(), ['alt' => $author->username, 'style' => ['height' => '150px']]); ?> </div>
+        <div class="author-image frame">
+            <?= yii\helpers\Html::img($image->getUrl(), ['alt' => $author->username, 'class' => 'avatar-user']); ?>
+        </div>
         <div class="author-details">
             <h3>Автор: <?= $author->username ?></h3>
             <p><?= $author->description ?></p>
