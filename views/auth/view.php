@@ -25,11 +25,6 @@ $img = $model->getImage();
                     'username',
                     'email',
                     'description',
-                    /*[
-                'attribute' => 'image',
-                'value' =>  "<img src='{$img->getUrl()}'>",
-                'format' => 'html',
-            ],*/
                 ],
             ]) ?>
         </div>
@@ -38,7 +33,10 @@ $img = $model->getImage();
             <?php Pjax::begin(); ?>
 
             <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'action' => '/example/pjax/pjax-example-5', 'data-pjax' => ''], 'id' => 'input__avatar']); ?>
-            <?= Html::img($img->getUrl(), ['alt' => $model->username, 'class' => 'avatar-user', 'labels' => '']); ?>
+            <div class="avatar">
+                <?= Html::img($img->getUrl(), ['alt' => $model->username, 'class' => 'avatar-user', 'labels' => '']); ?>
+            </div>
+                        
             <div class="form-group">
                 <label class="btn btn-gray selection">
                     <?= $form->field($model, 'image')->fileInput(['id' => 'input__file', 'class' => 'input__file'])->label('Изменить изображение'); ?>

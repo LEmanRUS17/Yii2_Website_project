@@ -100,11 +100,15 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
 
     public function upload() // Обновление изображения на сервере
     {
-        $path = 'upload/user_avatar/' . $this->image->baseName . '.' . $this->image->extension; // Путь сохранения
-        $this->image->saveAs($path);     // Сохранить изображение
-        $this->attachImage($path, true); // Записать в БД
-        
-        @unlink($path); // Удаление картинки
+        if ($this->validate()) {
+            $path = 'upload/user_avatar/' . $this->image->baseName . '.' . $this->image->extension; // Путь сохранения
+            $this->image->saveAs($path);     // Сохранить изображение
+            $this->attachImage($path, true); // Записать в БД
+            unlink($path); // Удаление картинки
+            return true;
+        } else {
+            return false;
+        }
     }
     /* --- /image --- */
 

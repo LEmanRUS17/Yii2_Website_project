@@ -133,7 +133,6 @@ class AuthController extends AppController
         $this->setMeta('Редактирование учетной записи');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $this->imageProcessing($model); // Добавление изображения
             Yii::$app->session->setFlash('success', 'Пользователь "' . $model->username . '" изменен'); // Сесионное сообщение
             return $this->redirect(['view', 'id' => $model->id]);
         }
