@@ -1,6 +1,6 @@
 <?php
 
-use app\modules\admin\models\Comment;
+use app\models\Comment;
 use app\modules\admin\models\Category;
 
 ?>

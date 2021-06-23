@@ -1,76 +1,50 @@
-<div id="comments" class="box">
-    <h3>Коментарии</h3>
-    <ol id="singlecomments" class="commentlist">
-        <li>
-            <div class="user frame"><img alt="" src="/web/images/art/u1.jpg" class="avatar" /></div>
-            <div class="message">
-                <div class="info">
-                    <h2><a href="#">Connor Gibson</a></h2>
-                    <div class="meta">
-                        <div class="date">January 14, 2010</div>
-                        <a class="reply-link" href="#">Reply</a>
-                    </div>
-                </div>
-                <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Sed posuere consectetur est at lobortis. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Vestibulum id ligula porta felis euismod semper.</p>
-            </div>
-        </li>
-        <li>
-            <div class="user frame"><img alt="" src="/web/images/art/u2.jpg" class="avatar" /></div>
-            <div class="message">
-                <div class="info">
-                    <h2><a href="#">Nikolas Brooten</a></h2>
-                    <div class="meta">
-                        <div class="date">February 21, 2010</div>
-                        <a class="reply-link" href="#">Reply</a>
-                    </div>
-                </div>
-                <p>Quisque tristique tincidunt metus non aliquam. Quisque ac risus sit amet quam sollicitudin vestibulum vitae malesuada libero. Mauris magna elit, suscipit non ornare et, blandit a tellus. Pellentesque dignissim ornare elit, quis mattis eros sodales ac.</p>
-            </div>
-            <ul class="children">
-                <li class="bypostauthor">
-                    <div class="user frame"><img alt="" src="/web/images/art/u3.jpg" class="avatar" /></div>
-                    <div class="message">
-                        <div class="bypostauthor">
-                            <div class="info">
-                                <h2><a href="#">Pearce Frye</a></h2>
-                                <div class="meta">
-                                    <div class="date">February 22, 2010</div>
-                                    <a class="reply-link" href="#">Reply</a>
-                                </div>
-                            </div>
-                            <p>Cras mattis consectetur purus sit amet fermentum. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Etiam porta sem malesuada magna mollis euismod. Maecenas sed diam eget risus varius blandit non magna.</p>
+<?php
+
+use app\models\User;
+
+?>
+    <div id="comments" class="box">
+        <?php if (!empty($comments)) : ?>
+            <h3>Коментарии</h3>
+            <ol id="singlecomments" class="commentlist">
+                <?php foreach ($comments as $comment) : ?>
+                    <li>
+                        <div class="user avatar avatar-comit">
+                            <!-- <img alt="" src="/web/images/art/u1.jpg" class="avatar" />-->
+                            <?php $image = User::findOne($comment->user_id)->getImage(); ?>
+                            <?= yii\helpers\Html::img($image->getUrl(), ['alt' => $comment->user->username, 'class' => 'avatar-user avatar-comit']); ?>
                         </div>
-                    </div>
-                    <ul class="children">
-                        <li>
-                            <div class="user frame"><img alt="" src="/web/images/art/u2.jpg" class="avatar" /></div>
-                            <div class="message">
-                                <div class="info">
-                                    <h2><a href="#">Nikolas Brooten</a></h2>
-                                    <div class="meta">
-                                        <div class="date">April 4, 2010</div>
-                                        <a class="reply-link" href="#">Reply</a>
-                                    </div>
+
+                        <div class="message">
+                            <div class="info">
+                                <h2><a href="#"><?= $comment->user->username; ?></a></h2>
+                                <div class="meta">
+                                    <div class="date"><?= $comment->getDate(); ?></div>
+                                    <!--<a class="reply-link" href="#">Reply</a>--> <!-- ссылка для ответа  -->
+                                    
                                 </div>
-                                <p>Nullam id dolor id nibh ultricies vehicula ut id. Cras mattis consectetur purus sit amet fermentum. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
                             </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <div class="user frame"><img alt="" src="/web/images/art/u4.jpg" class="avatar" /></div>
-            <div class="message">
-                <div class="info">
-                    <h2><a href="#">Lou Bloxham</a></h2>
-                    <div class="meta">
-                        <div class="date">May 03, 2010</div>
-                        <a class="reply-link" href="#">Reply</a>
-                    </div>
+                            <p><?= $comment->text ?></p>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ol>
+        <?php else: ?>
+            <h3>Коментариев к этой статье нет</h3>
+        <?php endif; ?>
+        
+        <?php if (!Yii::$app->user->isGuest) : ?>
+            <hr>
+            <div class="coment-form">
+                <h2 class="section-title">Ваш коментарий:</h2>
+                <?php $form = \yii\widgets\ActiveForm::begin([
+                    'action' => ['blog/comment', 'id' => $article->id],
+                ]) ?>
+                <div class="message-field">
+                    <?= $form->field($commentForm, 'comment')->textarea(['class' => 'plan']) ?>
                 </div>
-                <p>Sed posuere consectetur est at lobortis. Vestibulum id ligula porta felis euismod semper. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                <?= yii\bootstrap\Html::submitButton('Разместить коментарий', ['class' => 'btn']) ?>
+                <?php \yii\widgets\ActiveForm::end(); ?>
             </div>
-        </li>
-    </ol>
-</div>
+        <?php endif; ?>
+    </div>

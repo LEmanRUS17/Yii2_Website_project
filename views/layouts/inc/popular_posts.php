@@ -1,7 +1,7 @@
 <?php
 
 use app\modules\admin\models\Article;
-use app\modules\admin\models\Comment;
+use app\models\Comment;
 use yii\helpers\Html;
 use yii\helpers\Url;
 

@@ -1,6 +1,6 @@
 <?php
 
-use app\modules\admin\models\Comment;
+use app\models\Comment;
 use app\modules\admin\models\Category;
 use yii\helpers\Url;
 
@@ -55,9 +55,17 @@ $image = $article->getImage();
 
             <div class="divide20"></div>
 
-            <?//= $this->render('//layouts/inc/coments') ?>
+            <?= $this->render('//layouts/inc/coments', [
+                    'comments' => $comments,
+                    'article' => $article,                    
+                    'commentForm' => $commentForm,
+                ]) ?>
             <!-- /#comments -->
 
+            <?/*= $this->render('//layouts/inc/comment_form', [
+                    'article' => $article,
+                    'commentForm' => $commentForm,
+                ]) */?>
             <div class="divide20"></div>
 
             <?//= $this->render('//layouts/inc/contact') ?>

@@ -3367,7 +3367,7 @@ textarea {
     flex-direction: row;
     justify-content: center;
 }
-    .avatar-user .avatar {
+    .avatar {
         border-radius: 50%!important;
         width: 200px;
         height: 200px;
@@ -3377,10 +3377,14 @@ textarea {
         justify-content: center;
         align-items: center;
     }
-        .avatar-user .avatar img {
-            width: 100%;
-            height: auto;
+        .avatar-comit {
+            width: 70px;
+            height: 70px;
         }
+        /*.avatar-user .avatar img {
+            width: 70px;
+            height: 70px;
+        }*/
     .avatar-user .selection {
         width: 200px;
         height: 50px;

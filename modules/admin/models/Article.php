@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\models;
 
+use app\models\Comment;
 use app\models\User;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -104,6 +105,11 @@ class Article extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Comment::class, ['article_id' => 'id']);
     }
+    
+    public function getArticleComment()
+    {
+        return $this->getComments()->where(['status' => 1])->all();
+    }
     /* --- /Coment --- */
 
     /* --- Tag --- */
@@ -149,6 +155,7 @@ class Article extends \yii\db\ActiveRecord
     {
         ArticleTag::deleteAll(['article_id' => $this->id]);
     }
+    
     /* --- /Tag --- */
 
     /* --- image --- */
@@ -234,5 +241,11 @@ class Article extends \yii\db\ActiveRecord
     public function getAuthor()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    public function viewedCounter()
+    {
+        $this->viewed += 1;
+        return $this->save(false);
     }
 }

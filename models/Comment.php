@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\admin\models;
+namespace app\models;
 
 use app\models\User;
 use Yii;
@@ -86,5 +86,10 @@ class Comment extends \yii\db\ActiveRecord
             ->count();                    // Получить все записи
         
         return $comments;
+    }
+
+    public function getDate() // Получить дату создания
+    {
+        return Yii::$app->formatter->asDate($this->date, 'php:d M Y | g:i');
     }
 }
