@@ -208,7 +208,7 @@ class Article extends \yii\db\ActiveRecord
     public static function getAll($pageSize = 5) // Статичный метод для получени пагинации
     {
         // создать запрос к БД, чтобы получить все статьи
-        $query      = Article::find();                           // Получение статей из БД
+        $query      = Article::find()->orderBy('date DESC');     // Получение статей из БД
         $pagination = Article::getPagination($query, $pageSize); // Сформировать пагинацию
 
         return Article::ArticlesByPage($query, $pagination);
