@@ -86,6 +86,8 @@ class ArticleController extends AppAdminController
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) { // Если модель получена и сохранена
 
+            $this->imageProcessing($model);   // Обновить изображение
+            $this->galleryProcessing($model); // Обновить галерею
             $model->saveCategory(Yii::$app->request->post('category'));                            // Сохранение значения полученой категории
             Yii::$app->session->setFlash('success', 'Публикация "' . $model->title . '" создана'); // Созданение сесионого сообщения
             

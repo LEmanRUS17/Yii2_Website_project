@@ -14,7 +14,7 @@ class BlogController extends AppController
 {
     public function actionClassic()
     {
-        $data = Article::getAll(5);
+        $data = Article::getAll(3);
 
         return $this->render('classic', [
             'articles'   => $data['articles'],
@@ -71,7 +71,7 @@ class BlogController extends AppController
             
             if($model->saveComment($id))
             {                
-                return $this->redirect(['home']);
+                return $this->redirect(['post', 'id' => $id]);
             }
         }
     }

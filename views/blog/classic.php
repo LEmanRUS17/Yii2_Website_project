@@ -49,7 +49,7 @@ use app\modules\admin\models\Category;
                 <?php endforeach; ?>
             </div>
             <!-- /.blog-posts -->
-
+            
             <div class="pagination box">
                 <?= yii\widgets\LinkPager::widget([
                     'pagination'                    => $pagination,
@@ -60,7 +60,7 @@ use app\modules\admin\models\Category;
                     'disabledListItemSubTagOptions' => ['class' => 'btn'], // Css для непктивного элемента
                 ]); ?>
             </div>
-
+            
             <!-- /.pagination -->
 
         </div>

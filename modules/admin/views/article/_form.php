@@ -39,7 +39,7 @@ mihaildev\elfinder\Assets::noConflict($this);
     <?= $form->field($model, 'image')->fileInput() ?>
     <!-- Поле для загрузки картинки -->
 
-    <?= $form->field($model, 'gallery[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
+    <?//= $form->field($model, 'gallery[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
     <!-- Поле для загрузки картинок -->
 
     <?php echo $form->field($model, 'category_id')

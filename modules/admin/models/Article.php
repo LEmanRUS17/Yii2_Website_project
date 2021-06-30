@@ -45,17 +45,19 @@ class Article extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title',  'description', 'content'], 'required'],               // Заголовок, описание, содержание | Обязателен
-            [['title',  'description', 'content'], 'string'],                 // Заголовок, описание, содержание | Строка
-            ['title', 'string', 'max' => 255],                                // Заголовок                       | Максимальное количество символов: 255
-            ['date',  'date', 'format' => 'php: Y-m-d G:i:s'],                // Дата                            | Дата, формат: Год-месяц-день час:минута
-            ['date',  'default', 'value' => date('Y-m-d G:i:s')],             // Дата                            | Значение по умолчанию: текущая дата
-            ['user_id', 'integer'],                                           // Автор                           | Входное значение типа "integer"
-            ['category_id', 'default', 'value' => 1],                         // Категория                       | Значение по умолчанию "1"
-            ['status', 'default', 'value' => 1],                              // Статус                          | Значение по умолчанию "1"
-            ['viewed', 'default', 'value' => 0],                              // Просмотры                       | Значение по умолчанию "0"
-            ['image', 'file', 'extensions' => 'png, jpg'],                    // Изображение                     | Файл формата png, jpg
-            ['gallery', 'file','extensions' => 'png, jpg', 'maxFiles' => 9],  // Изображения                     | Файлы формата png, jpg. Максимальное количество 9
+            [['title',  'description', 'content'], 'required'],                    // Заголовок, описание, содержание | Обязателен
+            [['title',  'description', 'content'], 'string'],                      // Заголовок, описание, содержание | Строка
+            ['title', 'string', 'max' => 255],                                     // Заголовок                       | Максимальное количество символов: 255
+            ['date',  'date', 'format' => 'php: Y-m-d G:i:s'],                     // Дата                            | Дата, формат: Год-месяц-день час:минута
+            ['date',  'default', 'value' => date('Y-m-d G:i:s')],                  // Дата                            | Значение по умолчанию: текущая дата
+            ['user_id', 'integer'],                                                // Автор                           | Входное значение типа "integer"
+            ['user_id', 'default', 'value' => $_SESSION['__id']],                  // Автор                           | id залогиневшегося пользователя                           
+            ['category_id', 'default', 'value' => 1],                              // Категория                       | Значение по умолчанию "1"
+            ['status', 'default', 'value' => 1],                                   // Статус                          | Значение по умолчанию "1"
+            ['viewed', 'default', 'value' => 0],                                   // Просмотры                       | Значение по умолчанию "0"
+            
+            ['image', 'file', 'extensions' => 'png, jpg, jpeg'],                   // Изображение                     | Файл формата png, jpg
+            ['gallery', 'file','extensions' => 'png, jpg, jpeg', 'maxFiles' => 9], // Изображения                     | Файлы формата png, jpg. Максимальное количество 9
         ];
     }
 
